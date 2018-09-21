@@ -39,28 +39,28 @@ class DriverList(Resource):
 #    return marshal(db_get_todo(), resource_fields), 200
 class Driver(Resource):
     @jwt_optional
-    def get(self, id):
+    def get(self, _id):
         user_id = get_jwt_identity()
-        driver = DriverModel.find_by_id(id)
+        driver = DriverModel.find_by_id(_id)
         if driver:
             if user_id:
                 return marshal(driver, driver_fields), 200
             resp = marshal(driver, driver_not_logged_fields)
             resp['message'] = 'more information if logged in.'
             return resp, 200
-        return {'message': "DriverId '{}' not found".format(id)}, 404
+        return {'message': "DriverId '{}' not found".format(_id)}, 404
 
     @jwt_required
-    def put(self, id):
+    def put(self, _id):
         data = _driver_parser.parse_args()
-        driver = DriverModel.find_by_id(id)
+        driver = DriverModel.find_by_id(_id)
 
         if driver:
-            driver.first_name = data['first_name']
-            driver.last_name = data['last_name']
-            driver.number = data['number']
-            driver.team_id = data['team_id']
-            driver.country = data['country']
+            driver.first_name = data.get('first_name', driver.first_name)
+            driver.last_name = data.get('last_name', driver.last_name)
+            driver.number = data.get('number', driver.number)
+            driver.team_id = data.get('team_id', driver.team_id)
+            driver.country = data.get('country', driver.country)
         else:
             driver = DriverModel(**data)
 
@@ -69,12 +69,12 @@ class Driver(Resource):
         return marshal(driver, driver_fields), 202
 
     @fresh_jwt_required
-    def delete(self, id):
+    def delete(self, _id):
         claims = get_jwt_claims()
         if not claims['is_admin']:
             return {'message': 'Admin privilege required'}, 401
-        driver = DriverModel.find_by_id(id)
+        driver = DriverModel.find_by_id(_id)
         if driver:
             driver.delete_from_db()
 
-        return {'message': "DriverId '{}' deleted.".format(id)}, 202
+        return {'message': "DriverId '{}' deleted.".format(_id)}, 202

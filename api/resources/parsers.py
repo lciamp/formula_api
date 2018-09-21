@@ -16,7 +16,7 @@ _driver_parser.add_argument('last_name',
 _driver_parser.add_argument('country',
                             type=str,
                             location='json',
-                            required=True,
+                            required=False,
                             help="country field can not be left blank."
                             )
 _driver_parser.add_argument('number',
