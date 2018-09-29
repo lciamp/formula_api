@@ -6,13 +6,9 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from config import config
 db = SQLAlchemy()
-
-
 from api.resources.driver import DriverList, Driver
 from api.resources.team import TeamList, Team
 from api.resources.user import UserList, User, UserLogin, UserRegister, UserLogout, TokenRefresh
-
-
 
 
 def create_app(config_name):

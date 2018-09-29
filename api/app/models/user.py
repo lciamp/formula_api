@@ -1,7 +1,4 @@
-
 from datetime import datetime
-from flask import abort
-
 from api.app import db
 
 
@@ -21,7 +18,6 @@ class UserModel(db.Model):
 
     def json(self):
         return {
-            'id': self.id,
             'username': self.username
         }
 
@@ -35,11 +31,7 @@ class UserModel(db.Model):
 
     @classmethod
     def find_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first() or abort(404, "User_id '{}' not found".format(_id))
-
-    @classmethod
-    def find_by_name(cls, name):
-        return cls.query.filter_by(username=name).first() or abort(404, "User '{}' not found".format(name))
+        return cls.query.filter_by(id=_id).first()
 
     def save_to_db(self):
         db.session.add(self)
