@@ -4,7 +4,8 @@ from flask_jwt_extended import (
     get_jwt_claims,
     jwt_optional,
     get_jwt_identity,
-    fresh_jwt_required
+    fresh_jwt_required,
+    current_user,
 )
 
 from api.app.models import DriverModel
@@ -23,7 +24,7 @@ class DriverList(Resource):
         resp['message'] = 'More information if logged in.'
         return resp, 200
 
-    @fresh_jwt_required
+    @   jwt_required
     def post(self):
         data = _driver_parser.parse_args()
         if DriverModel.find_by_number(data['number']):
@@ -70,11 +71,10 @@ class Driver(Resource):
 
     @fresh_jwt_required
     def delete(self, _id):
-        claims = get_jwt_claims()
-        if not claims['is_admin']:
+        if not current_user.is_admin:
             return {'message': 'Admin privilege required'}, 401
         driver = DriverModel.find_by_id(_id)
         if driver:
             driver.delete_from_db()
 
-        return {'message': "DriverId '{}' deleted.".format(_id)}, 202
+        return {'message': "DriverId: {} deleted.".format(_id)}, 202

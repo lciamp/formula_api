@@ -14,7 +14,7 @@ class TeamModel(db.Model):
     championships = db.Column(db.Integer, default=0)
     drivers = db.relationship('DriverModel', lazy='dynamic')
 
-    def __init__(self, name, base, chief, car, power_unit, since, championships):
+    def __init__(self, name, base, chief, car, power_unit, since=0, championships=0):
         self.name = name
         self.base = base
         self.chief = chief

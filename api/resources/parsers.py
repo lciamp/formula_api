@@ -1,6 +1,5 @@
 from flask_restful import reqparse
 
-
 _driver_parser = reqparse.RequestParser()
 _driver_parser.add_argument('first_name',
                             required=True,
@@ -45,6 +44,12 @@ _team_parser.add_argument('base',
                           required=True,
                           location='json',
                           help="base field can not be left blank."
+                          )
+_team_parser.add_argument('chief',
+                          type=str,
+                          required=True,
+                          location='json',
+                          help="chief field can not be left blank."
                           )
 _team_parser.add_argument('car',
                           type=str,

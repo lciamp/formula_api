@@ -6,6 +6,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from config import config
 db = SQLAlchemy()
+from api.app.models import UserModel
 from api.resources.driver import DriverList, Driver
 from api.resources.team import TeamList, Team
 from api.resources.user import UserList, User, UserLogin, UserRegister, UserLogout, TokenRefresh
@@ -21,10 +22,10 @@ def create_app(config_name):
     jwt = JWTManager(app)
 
     api.add_resource(DriverList, '/drivers', '/drivers/')
-    api.add_resource(Driver, '/drivers/<int:id>')
+    api.add_resource(Driver, '/drivers/<int:_id>')
 
     api.add_resource(TeamList, '/teams', '/teams/')
-    api.add_resource(Team, '/teams/<int:id>')
+    api.add_resource(Team, '/teams/<int:_id>')
 
     api.add_resource(UserList, '/users', '/users/')
     api.add_resource(User, '/users/<user>')
@@ -32,6 +33,10 @@ def create_app(config_name):
     api.add_resource(UserLogin, '/login', '/login/')
     api.add_resource(UserLogout, '/logout', '/logout/')
     api.add_resource(TokenRefresh, '/refresh', '/refresh/')
+
+    @jwt.user_loader_callback_loader
+    def user_callback(identity):
+        return UserModel.find_by_id(identity)
 
     @api.representation('application/json')
     def output_json(data, code, headers=None):

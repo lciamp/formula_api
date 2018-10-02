@@ -5,7 +5,7 @@ from api.app.models import DriverModel, TeamModel
 
 class DriverTest(BaseTest):
     def test_driver_crud(self):
-        team = TeamModel('test', 'test', 'test', 'test', 'test', 0, 0).save_to_db()
+        TeamModel('test', 'test', 'test', 'test', 'test', 0, 0).save_to_db()
         driver = DriverModel('test fn', 'test ln', 0, 1, 'test', 0, 0, 0, date(1995, 8, 25))
 
         self.assertIsNone(DriverModel.find_by_id(1),

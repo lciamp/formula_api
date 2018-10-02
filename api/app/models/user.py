@@ -11,7 +11,7 @@ class UserModel(db.Model):
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     is_admin = db.Column(db.Boolean(), default=False)
 
-    def __init__(self, username, password, is_admin):
+    def __init__(self, username, password, is_admin=False):
         self.username = username
         self.password = password
         self.is_admin = is_admin
