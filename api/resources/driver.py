@@ -17,7 +17,7 @@ class DriverList(Resource):
     @jwt_optional
     def get(self):
         user_id = get_jwt_identity()
-        drivers = [d.json() for d in DriverModel.find_all()]
+        #drivers = [d.json() for d in DriverModel.find_all()]
         if user_id:
             return marshal(DriverModel.find_all(), driver_fields, envelope='drivers'), 200
         resp = marshal(DriverModel.find_all(), driver_not_logged_fields, envelope='drivers')

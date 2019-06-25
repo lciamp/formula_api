@@ -17,6 +17,10 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
+    @app.route('/')
+    def index():
+        return "this is the index page, use api endpoints"
+
     db.init_app(app)
     api = Api(app)
     jwt = JWTManager(app)
