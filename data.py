@@ -1,6 +1,6 @@
 # driver - first_name, last_name number, team_id, country, podium, points, championships, birthday):
 from datetime import date
-#from app1 import db
+#from api import db
 from app.models import DriverModel
 from app.models.team import TeamModel
 
