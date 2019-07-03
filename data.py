@@ -1,8 +1,8 @@
 # driver - first_name, last_name number, team_id, country, podium, points, championships, birthday):
 from datetime import date
-#from api import db
-from app.models import DriverModel
-from app.models.team import TeamModel
+from api.db import db
+from api.app.models import DriverModel
+from api.app.models.team import TeamModel
 
 DRIVERS = [
     ('Lewis', 'Hamilton', 44, 1, 'United Kingdom', 128, 2866, 4, date(1985, 1, 7)),
