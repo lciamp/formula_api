@@ -19,7 +19,7 @@ def create_app(config_name):
 
     @app.route('/')
     def index():
-        return "this is the index page, use api endpoints"
+        return render_template('index.html')
 
     db.init_app(app)
     api = Api(app)
