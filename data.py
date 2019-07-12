@@ -1,6 +1,7 @@
 # driver - first_name, last_name number, team_id, country, podium, points, championships, birthday):
 from datetime import date
-from api.db import db
+
+from api.app import create_app, db
 from api.app.models import DriverModel
 from api.app.models.team import TeamModel
 
@@ -65,3 +66,11 @@ def add_drivers():
         d = DriverModel(*driver)
         d.save_to_db()
     print('drivers added to db')
+
+
+if __name__ == '__main__':
+    app = create_app('default')
+    with app.app_context():
+        db.create_all()
+        add_teams()
+        add_drivers()

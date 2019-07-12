@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, make_response
+from flask import Flask, make_response, render_template
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
