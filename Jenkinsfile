@@ -9,7 +9,7 @@ pipeline {
     }
     stage('test') {
       steps {
-        sh 'python -m pytest tests/'
+        sh 'py.test --junitxml results.xml tests/'
       }   
     }
   }
