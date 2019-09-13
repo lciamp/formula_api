@@ -1,3 +1,3 @@
-from .driver import DriverModel
-from .team import TeamModel
-from .user import UserModel
+from . import driver
+from . import team
+from . import user

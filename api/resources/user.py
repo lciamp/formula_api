@@ -1,6 +1,6 @@
 from flask_restful import Resource, marshal_with
 from werkzeug.security import safe_str_cmp
-from api.blacklist import BLACKLIST
+from ..blacklist import BLACKLIST
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -9,7 +9,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_raw_jwt
 )
-from api.app.models import UserModel
+from ..app.models.user import UserModel
 from .parsers import _user_parser
 from .marshaling import user_fields
 

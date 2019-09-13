@@ -1,5 +1,5 @@
 from datetime import datetime
-from api.app import db
+from .. import db
 
 
 class UserModel(db.Model):

@@ -3,5 +3,9 @@ python:
   - "3.6"
 install:
   - "pip install pytest"
+  - "pip install codecov"
   - "pip install -r requirements.txt"
-script: python -m pytest tests/
+script:
+  - coverage run tests/
+after_success:
+  - codecov
