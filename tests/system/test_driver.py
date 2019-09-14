@@ -1,6 +1,6 @@
 import json
 from datetime import date
-from api.app.models import DriverModel, TeamModel, UserModel
+from api.app.models import DriverModel, UserModel
 from tests.base_test import BaseTest
 
 

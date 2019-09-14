@@ -1,6 +1,6 @@
 from unittest import TestCase
 from datetime import date
-from api.app.models import DriverModel, TeamModel
+from api.app.models import DriverModel
 
 
 class DriverTest(TestCase):
