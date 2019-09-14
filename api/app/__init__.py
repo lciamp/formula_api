@@ -42,7 +42,7 @@ def create_app(config_name):
 
     @jwt.user_loader_callback_loader
     def user_callback(identity):
-        return UserModel.find_by_id(identity)
+        return user.UserModel.find_by_id(identity)
 
     @api.representation('application/json')
     def output_json(data, code, headers=None):

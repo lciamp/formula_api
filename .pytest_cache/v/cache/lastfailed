@@ -1,0 +1,22 @@
+{
+  "tests/base_test.py::BaseTest": true,
+  "tests/base_test.py::TestCase": true,
+  "tests/integration/test_driver.py::BaseTest": true,
+  "tests/integration/test_driver.py::DriverTest": true,
+  "tests/integration/test_team.py::BaseTest": true,
+  "tests/integration/test_team.py::TeamTest": true,
+  "tests/integration/test_user.py::BaseTest": true,
+  "tests/integration/test_user.py::TestUser": true,
+  "tests/system/test_driver.py::BaseTest": true,
+  "tests/system/test_driver.py::DriverTest": true,
+  "tests/system/test_team.py::BaseTest": true,
+  "tests/system/test_team.py::TeamTest": true,
+  "tests/system/test_user.py::BaseTest": true,
+  "tests/system/test_user.py::UserTest": true,
+  "tests/unit/test_driver.py::DriverTest": true,
+  "tests/unit/test_driver.py::TestCase": true,
+  "tests/unit/test_team.py::TeamTest": true,
+  "tests/unit/test_team.py::TestCase": true,
+  "tests/unit/test_user.py::TestCase": true,
+  "tests/unit/test_user.py::UserTest": true
+}
