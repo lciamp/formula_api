@@ -1,5 +1,4 @@
 from flask_restful import Resource, marshal, marshal_with
-from flask_restful import Resource, marshal
 from flask_jwt_extended import jwt_required
 from api.app.models.team import TeamModel
 from .parsers import _team_parser
