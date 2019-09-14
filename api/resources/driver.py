@@ -9,7 +9,7 @@ from flask_jwt_extended import (
 )
 
 #from models import DriverModel
-from ..app.models.driver import DriverModel
+from api.app.models.driver import DriverModel
 from .marshaling import driver_not_logged_fields, driver_fields
 from .parsers import _driver_parser
 

@@ -1,4 +1,4 @@
-from .. import db
+from api.app import db
 
 
 class TeamModel(db.Model):

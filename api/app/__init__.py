@@ -5,13 +5,13 @@ from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from ...config import config
+from config import config
 
 db = SQLAlchemy()
-from .models import user
-from ..resources.driver import DriverList, Driver
-from ..resources.team import TeamList, Team
-from ..resources.user import UserList, User, UserLogin, UserRegister, UserLogout, TokenRefresh
+from api.app.models import user
+from api.resources.driver import DriverList, Driver
+from api.resources.team import TeamList, Team
+from api.resources.user import UserList, User, UserLogin, UserRegister, UserLogout, TokenRefresh
 
 
 def create_app(config_name):
@@ -42,7 +42,7 @@ def create_app(config_name):
 
     @jwt.user_loader_callback_loader
     def user_callback(identity):
-        return user.UserModel.find_by_id(identity)
+        return UserModel.find_by_id(identity)
 
     @api.representation('application/json')
     def output_json(data, code, headers=None):

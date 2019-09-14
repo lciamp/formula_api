@@ -1,8 +1,8 @@
 
-#from app.decorators import db_check_or_return_500
-from ..decorators import db_check_or_return_500
+from api.app.decorators import db_check_or_return_500
 
-from .. import db
+
+from api.app import db
 
 from datetime import date
 
