@@ -1,5 +1,5 @@
 from unittest import TestCase
-from api.app.models import DriverModel, TeamModel
+from api.app.models import TeamModel
 
 
 class TeamTest(TestCase):

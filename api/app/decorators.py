@@ -1,5 +1,5 @@
 import functools
-from flask import abort, Response, jsonify
+from flask import abort, Response
 import json
 
 
