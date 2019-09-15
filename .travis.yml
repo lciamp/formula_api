@@ -3,7 +3,7 @@ language: python
 python:
   - "3.6"
 install:
-  - "pip install pytest pytest-cov"
+  - "pip install pytest pytest-cov coveralls"
   - "pip install -r requirements.txt"
 #script: coverage run -m unittest discover
 script: python -m pytest --cov .
