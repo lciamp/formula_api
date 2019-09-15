@@ -3,7 +3,7 @@ language: python
 python:
   - "3.6"
 env:
-  - CODACY_PROJECT_TOKEN=7254702c94ca4391b0ea3f7c8dae9ae8
+  - CODACY_PROJECT_TOKEN="7254702c94ca4391b0ea3f7c8dae9ae8"
 
 install:
   - "pip install pytest pytest-cov coveralls codacy-coverage"
