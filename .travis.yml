@@ -12,6 +12,4 @@ install:
 script: python -m pytest --cov .
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - coverallsi
-  - coverage xml -i
-  - python-codacy-coverage -r coverage.xml
+
