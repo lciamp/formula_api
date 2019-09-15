@@ -1,6 +1,4 @@
 import functools
-from flask import abort, Response
-import json
 
 
 def db_check_or_return_500(func):
