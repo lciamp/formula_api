@@ -21,7 +21,6 @@ pipeline {
 				sh "pip install coverage"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
-				sh "python -m pytest --verbose --junit-xml test-reports/results.xml"
 			}
 			post{
                 always{
@@ -46,7 +45,7 @@ pipeline {
 			post {
 				always {
 					junit (allowEmptyResults: true,
-                          testResults: './test-reports/results.xml')
+                          testResults: 'test-reports/results.xml')
 				}
 			}
 		}
@@ -61,4 +60,5 @@ pipeline {
             //slackSend (color: 'good', message: "jarvis_${BRANCH_NAME} - Build #${BUILD_NUMBER} Success. (<${env.BUILD_URL}|Open>)")
         }
 	}
+
 }
