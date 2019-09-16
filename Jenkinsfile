@@ -26,9 +26,6 @@ pipeline {
 				sh "pip install coverage"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
-				sh "coverage report"
-				sh "pwd"
-				sh "ls -l"
 			}
 			post{
                 always{
