@@ -23,14 +23,14 @@ pipeline {
 			}
 			steps {
 				sh "pip install coverage"
-				sh "python -m coverage xml -io reports/coverage.xml"
+				sh "coverage xml -i"
 			}
 			post{
                 always{
                     step([$class: 'CoberturaPublisher',
                                    autoUpdateHealth: false,
                                    autoUpdateStability: false,
-                                   coberturaReportFile: 'reports/coverage.xml',
+                                   coberturaReportFile: 'coverage.xml',
                                    failNoReports: false,
                                    failUnhealthy: false,
                                    failUnstable: false,
