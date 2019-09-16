@@ -18,12 +18,12 @@ class DriverTest(BaseTest):
         driver.delete_from_db()
         self.assertIsNone(DriverModel.find_by_id(1),
                           "Found an driver with id: 1, but expected not to.")
-    """
+    
     def test_team_relationship(self):
         TeamModel('test team', 'test', 'test', 'test', 'test', 0, 0).save_to_db()
         DriverModel('test fn', 'test ln', 0, 1, 'test', 0, 0, 0, date(1995, 8, 25)).save_to_db()
         driver = DriverModel.find_by_id(1)
-        self.assertEqual('test team', driver.team.name)
+        self.assertEqual('test tteam', driver.team.name)
 
     def test_driver_json(self):
         driver = DriverModel('test fn', 'test ln', 0, 1, 'test', 0, 0, 0, date(1995, 8, 25))
@@ -36,8 +36,8 @@ class DriverTest(BaseTest):
             'country': 'test',
             'podiums': 0,
             'points': 0,
-            'championships': 0,
+            'championships': 1,
             'birthday': '8/25/1995',
         }
-        self.assertDictEqual(driver.json(), expected)"""
+        self.assertDictEqual(driver.json(), expected)
 
