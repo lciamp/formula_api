@@ -1,7 +1,8 @@
 pipeline {
 	agent {
-		node {
-			label 'master'
+		docker {
+			image 'python:3'
+			args '-u root'
 		}
 	}
 	options {
@@ -9,12 +10,6 @@ pipeline {
 	}
 	triggers {
 		pollSCM 'H/10 * * * *'
-	}
-	agent {
-		docker {
-			image 'python:3'
-			args '-u root'
-		}
 	}
 	stages {
 		stage('build + cov') {
@@ -45,7 +40,9 @@ pipeline {
             }
 		}
 		stage('test') {
-			sh "python -m pytest --verbose --junit-xml test-reports/results.xml"
+			steps {
+				sh "python -m pytest --verbose --junit-xml test-reports/results.xml"
+			}
 		}
 		post {
 			always {
