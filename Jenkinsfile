@@ -10,22 +10,23 @@ pipeline {
 	triggers {
 		pollSCM 'H/10 * * * *'
 	}
+	agent {
+		docker {
+			image 'python:3'
+			args '-u root'
+		}
+	}
 	stages {
 		stage('build + cov') {
 			when {
 				branch 'master'
-			}
-			agent {
-				docker {
-					image 'python:3'
-					args '-u root'
-				}
 			}
 			steps {
 				sh "pip install -r requirements.txt"
 				sh "pip install coverage"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
+				sh "python -m pytest --verbose --junit-xml test-reports/results.xml"
 			}
 			post{
                 always{
@@ -42,6 +43,14 @@ pipeline {
                                    zoomCoverageChart: false])
                 }
             }
+		}
+		stage('test') {
+			sh "python -m pytest --verbose --junit-xml test-reports/results.xml"
+		}
+		post {
+			always {
+				junit 'test-reports/*.xml'
+			}
 		}
 	}
 	post {
