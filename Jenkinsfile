@@ -43,10 +43,10 @@ pipeline {
 			steps {
 				sh "python -m pytest --verbose --junit-xml test-reports/results.xml"
 			}
-		}
-		post {
-			always {
-				junit 'test-reports/*.xml'
+			post {
+				always {
+					junit 'test-reports/*.xml'
+				}
 			}
 		}
 	}
