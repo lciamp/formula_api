@@ -60,5 +60,4 @@ pipeline {
             //slackSend (color: 'good', message: "jarvis_${BRANCH_NAME} - Build #${BUILD_NUMBER} Success. (<${env.BUILD_URL}|Open>)")
         }
 	}
-
 }
