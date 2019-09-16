@@ -25,45 +25,35 @@ pipeline {
 				sh "pip install coverage"
 				sh "python -m coverage xml -o reports/coverage.xml"
 			}
+			post{
+                always{
+                    step([$class: 'CoberturaPublisher',
+                                   autoUpdateHealth: false,
+                                   autoUpdateStability: false,
+                                   coberturaReportFile: 'reports/coverage.xml',
+                                   failNoReports: false,
+                                   failUnhealthy: false,
+                                   failUnstable: false,
+                                   maxNumberOfBuilds: 10,
+                                   onlyStable: false,
+                                   sourceEncoding: 'ASCII',
+                                   zoomCoverageChart: false])
+                }
+            }
 		}
-		post{
-    		always{
-        		step([$class: 'CoberturaPublisher',
-                   autoUpdateHealth: false,
-                   autoUpdateStability: false,
-                   coberturaReportFile: 'reports/coverage.xml',
-                   failNoReports: false,
-                   failUnhealthy: false,
-                   failUnstable: false,
-                   maxNumberOfBuilds: 10,
-                   onlyStable: false,
-                   sourceEncoding: 'ASCII',
-                   zoomCoverageChart: false])
-    	}
 		stage('deploy') {
 			sh "deploying"
 		}
 	}
 	post {
-        failure {
+		failure {
             echo "failed"
-            //slackSend (color: 'danger', message: "bumblebee_${GIT_BRANCH} - Build #${BUILD_NUMBER} Failed. (<${env.BUILD_URL}|Open>)")
+            //slackSend (color: 'danger', message: "@here jarvis_${BRANCH_NAME} - Build #${BUILD_NUMBER} Failed. (<${env.BUILD_URL}|Open>)")
         }
         success {
-        	echo "good"
-            //slackSend (color: 'good', message: "bumblebee_${GIT_BRANCH} - Build #${BUILD_NUMBER} Success. (<${env.BUILD_URL}|Open>)")
+            echo "good"
+            //slackSend (color: 'good', message: "jarvis_${BRANCH_NAME} - Build #${BUILD_NUMBER} Success. (<${env.BUILD_URL}|Open>)")
         }
-        always {
-            // Docker creates files that is named under root user
-            // which jenkins cannot delete due to limited permission.
-            // Updating all folder permissions so we can do cleanup after every
-            // job done.
-            echo 'Updating folder permissions.'
-            sh "chmod -R 777 ."
-        }
-        cleanup {
-            echo 'Workspace cleanup.'
-            deleteDir()
-        }
-    }
+	}
+
 }
