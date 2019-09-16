@@ -59,6 +59,18 @@ pipeline {
             echo "good"
             //slackSend (color: 'good', message: "jarvis_${BRANCH_NAME} - Build #${BUILD_NUMBER} Success. (<${env.BUILD_URL}|Open>)")
         }
+        always {
+                // Docker creates files that is named under root user
+                // which jenkins cannot delete due to limitted permission.
+                // Updating all folder permissions so we can do cleanup after every
+                // job done.
+                echo 'Updating folder permissions.'
+                sh "chmod -R 777 ."
+            }
+        cleanup {
+            echo 'Workspace cleanup.'
+            deleteDir()
+        }
 	}
 
 }
