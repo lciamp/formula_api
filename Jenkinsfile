@@ -45,7 +45,9 @@ pipeline {
 			}
 			post {
 				always {
-					junit allowEmptyResults: true, testResults: 'test-reports/results.xml', fingerprint: true
+					junit (allowEmptyResults: true,
+                          testResults: './test-reports/results.xml',
+                          fingerprint: true)
 				}
 			}
 		}
@@ -60,4 +62,5 @@ pipeline {
             //slackSend (color: 'good', message: "jarvis_${BRANCH_NAME} - Build #${BUILD_NUMBER} Success. (<${env.BUILD_URL}|Open>)")
         }
 	}
+
 }
