@@ -23,7 +23,7 @@ pipeline {
 			}
 			steps {
 				sh "pip install coverage"
-				sh "python -m coverage xml -o reports/coverage.xml"
+				sh "python -m coverage xml -io reports/coverage.xml"
 			}
 			post{
                 always{
