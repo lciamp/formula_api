@@ -45,7 +45,7 @@ pipeline {
 			}
 			post {
 				always {
-					junit 'test-reports/*.xml'
+					junit allowEmptyResults: true, testResults: 'test-reports/results.xml', fingerprint: true
 				}
 			}
 		}
