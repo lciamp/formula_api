@@ -22,6 +22,7 @@ pipeline {
 				}
 			}
 			steps {
+				sh "pip install -r requirements.txt"
 				sh "pip install coverage"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
