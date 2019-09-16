@@ -23,6 +23,8 @@ pipeline {
 			}
 			steps {
 				sh "pip install coverage"
+				sh "pwd"
+				sh "ls -l"
 				sh "coverage xml -i"
 			}
 			post{
