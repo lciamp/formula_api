@@ -8,7 +8,7 @@ pipeline {
 		skipDefaultCheckout false
 	}
 	triggers {
-		polSCM 'H/10 * * * *'
+		pollSCM 'H/10 * * * *'
 	}
 	stages {
 		stage('build + cov') {
@@ -42,7 +42,9 @@ pipeline {
             }
 		}
 		stage('deploy') {
-			sh "deploying"
+			steps {
+				sh "deploying"
+			}
 		}
 	}
 	post {
