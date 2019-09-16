@@ -46,11 +46,6 @@ pipeline {
                 }
             }
 		}
-		stage('deploy') {
-			steps {
-				sh "deploying"
-			}
-		}
 	}
 	post {
 		failure {
