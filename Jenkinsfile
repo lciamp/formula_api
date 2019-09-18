@@ -22,7 +22,7 @@ pipeline {
 				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
-				step([$class: 'CcmPublisher', pattern: '**/ccm.xml'])
+				step([$class: 'CcmPublisher', pattern: '**/ccm.xml', reportName: 'CC Report'])
 
 				/*
 		        publishHTML target: [
