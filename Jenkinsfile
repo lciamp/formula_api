@@ -21,7 +21,7 @@ pipeline {
 				sh "pip install radon pylint"
 				sh "pylint -f parseable -d I0011,R0801 api | tee pylint.out"
 				
-				sh 'pylint --disable=W1202 --output-format=parseable --reports=no api | tee pylint.log'
+				sh 'pylint --disable=W1202 --output-format=parseable --reports=no api > pylint.log'
 				step([$class : 'WarningsPublisher',
         			parserConfigurations: [[
                         parserName: 'PYLint',
