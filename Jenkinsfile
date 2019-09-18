@@ -18,6 +18,8 @@ pipeline {
 			}
 			steps {
 				sh "pip install -r requirements.txt"
+				sh "pip install radon"
+				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
 			}
@@ -44,7 +46,7 @@ pipeline {
 			post {
 				always {
 					junit (allowEmptyResults: true,
-                          testResults: 'test-reports/results.xml')
+                          		testResults: 'test-reports/results.xml')
 				}
 			}
 		}
