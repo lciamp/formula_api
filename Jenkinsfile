@@ -23,7 +23,7 @@ pipeline {
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
 				step([$class: 'WarningsPublisher',
-                  parserConfigurations: [[
+                  parserConfigurations: [
                     parserName: 'radon',
                     pattern: 'ccm.xml'
                   ]])				
