@@ -22,6 +22,11 @@ pipeline {
 				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
+				step([$class: 'WarningsPublisher',
+                  parserConfigurations: [[
+                    parserName: 'radon',
+                    pattern: 'ccm.xml'
+                  ]])				
 			}
 			post{
                 always{
