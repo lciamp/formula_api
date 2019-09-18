@@ -22,6 +22,9 @@ pipeline {
 				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
+				step([$class: 'CcmPublisher', pattern: '**/ccm.xml'])
+
+				/*
 		        publishHTML target: [
 		            allowMissing: false,
 		            alwaysLinkToLastBuild: false,
@@ -32,7 +35,7 @@ pipeline {
 		        ]
 		        // hope this works
 				//sh "pylint -f parseable -d I0011,R0801 api | tee pylint.out"
-				/*
+				
 				sh 'pylint --disable=W1202 --output-format=parseable --reports=no api | tee pylint.log'
 				step([$class : 'WarningsPublisher',
         			parserConfigurations: [[
