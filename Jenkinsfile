@@ -19,7 +19,7 @@ pipeline {
 			steps {
 				sh "pip install -r requirements.txt"
 				sh "pip install radon pylint"
-				sh "radon cc --xml api > cc/ccm.xml"
+				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
 		        publishHTML target: [
