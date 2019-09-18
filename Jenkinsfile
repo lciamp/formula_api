@@ -30,6 +30,7 @@ pipeline {
 		            reportFiles: 'ccm.xml',
 		            reportName: 'CC Report'
 		        ]
+		        // hope this works
 				//sh "pylint -f parseable -d I0011,R0801 api | tee pylint.out"
 				/*
 				sh 'pylint --disable=W1202 --output-format=parseable --reports=no api | tee pylint.log'
