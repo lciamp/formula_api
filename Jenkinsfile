@@ -26,7 +26,7 @@ pipeline {
 		            allowMissing: false,
 		            alwaysLinkToLastBuild: false,
 		            keepAll: true,
-		            reportDir: 'cc',
+		            reportDir: '.',
 		            reportFiles: 'ccm.xml',
 		            reportName: 'CC Report'
 		        ]
