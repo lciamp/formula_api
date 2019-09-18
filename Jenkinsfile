@@ -19,6 +19,17 @@ pipeline {
 			steps {
 				sh "pip install -r requirements.txt"
 				sh "pip install radon pylint"
+				sh "pylint -f parseable -d I0011,R0801 api | tee pylint.out"
+				
+				sh 'pylint --disable=W1202 --output-format=parseable --reports=no api | tee pylint.log'
+				step([$class : 'WarningsPublisher',
+        			parserConfigurations: [[
+                        parserName: 'PYLint',
+                        pattern   : 'pylint.log'
+                  	]],
+        			unstableTotalAll: '0',
+        			usePreviousBuildAsReference: true
+				])
 				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
@@ -34,18 +45,7 @@ pipeline {
 		            reportName: 'CC Report'
 		        ]
 		       	*/
-				sh "pylint -f parseable -d I0011,R0801 api | tee pylint.out"
-				
-				sh 'pylint --disable=W1202 --output-format=parseable --reports=no api | tee pylint.log'
-				step([$class : 'WarningsPublisher',
-        			parserConfigurations: [[
-                        parserName: 'PYLint',
-                        pattern   : 'pylint.log'
-                  	]],
-        			unstableTotalAll: '0',
-        			usePreviousBuildAsReference: true
-				])
-				
+
 				/*
 				step([$class: 'WarningsPublisher',
         			parserConfigurations: [[
