@@ -19,7 +19,9 @@ pipeline {
 			steps {
 				sh "pip install -r requirements.txt"
 				sh "pip install radon pylint"
-				// pylint here
+				
+				sh "pylint --disable=W1202,E1101,I0011,R0801 --output-format=parseable --reports=no api > pylint.log"
+				
 				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
@@ -28,6 +30,14 @@ pipeline {
 			}
 			post{
                 always{
+			step([$class : 'WarningsPublisher',
+				parserConfigurations: [[
+				parserName: 'PYLint',
+				pattern   : 'pylint.log'
+				]],
+				unstableTotalAll: '0',
+				usePreviousBuildAsReference: true
+				])
                     step([$class: 'CoberturaPublisher',
                                    autoUpdateHealth: false,
                                    autoUpdateStability: false,
