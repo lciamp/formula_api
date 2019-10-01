@@ -20,8 +20,7 @@ pipeline {
 				sh "pip install -r requirements.txt"
 				sh "pip install radon pylint"
 				
-				sh "pylint --disable=W1202,E1101,I0011,R0801 --output-format=parseable --reports=no api > pylint.log"
-				
+				sh "pylint -f parseable -d I0011,R0801,E1101 api | tee pylint.log"
 				sh "radon cc --xml api > ccm.xml"
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
