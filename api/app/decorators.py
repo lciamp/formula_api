@@ -1,4 +1,5 @@
 import functools
+from os import abort
 
 
 def db_check_or_return_500(func):
