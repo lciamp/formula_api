@@ -58,7 +58,8 @@ pipeline {
 			post {
 				always {
 					junit (allowEmptyResults: true,
-                          		testResults: 'test-reports/results.xml')
+							healthScaleFactor: 0.5,
+                          	testResults: 'test-reports/results.xml')
 				}
 			}
 		}
