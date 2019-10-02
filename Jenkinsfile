@@ -69,7 +69,7 @@ pipeline {
 		stage('snyk dependency scan') {
 			agent {
 				docker {
-					image 'snyk/snyk-cli:python-3'
+					image 'snyk/snyk-cli'
 				}
 			}
 			environment {
