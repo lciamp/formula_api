@@ -75,7 +75,7 @@ pipeline {
 		        	organisation: 'eqx',
 		            severity: 'high',
 		            snykInstallation: 'snyk-latest',
-		            snykTokenId: '48e9378e-916a-46bb-ab02-5ab1256e5737',
+		            snykTokenId: 'snyk-api-token',
 
 		            targetFile: 'requirements.txt',
 		            failOnIssues: 'false'
