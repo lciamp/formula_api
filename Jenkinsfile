@@ -46,7 +46,7 @@ pipeline {
 					])
 					step([$class : 'WarningsPublisher',
 						parserConfigurations: [[
-						parserName: 'Ccm',
+						parserName: 'radon_cc',
 						pattern   : '**/ccm.xml'
 						]],
 						// less warnings than this number results in healthy build:
