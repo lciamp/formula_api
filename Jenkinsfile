@@ -66,22 +66,29 @@ pipeline {
 				}
 			}
 		}
-		stage('snyk dependency scan'){
-			tools {
-       			snyk 'snyk-latest'
-        	}
-			steps {
-		        snykSecurity(
-		        	organisation: 'eqx',
-		            severity: 'high',
-		            snykInstallation: 'snyk-latest',
-		            snykTokenId: 'snyk-api-token',
-
-		            targetFile: 'requirements.txt',
-		            failOnIssues: 'false'
-		        )
+		stage('snyk dependency scan') {
+			agent {
+				docker {
+					image 'snyk/snyk-cli:python-3'
+				}
 			}
+			environment {
+				SNYK_TOKEN = credentials('snyk-api-token')
+			}
+			steps {
+				sh """
+          			pip install -r requirements.txt
+          			snyk auth ${SNYK_TOKEN}
+          			snyk test --json \
+            		--severity-threshold=high \
+            		--file=requirements.txt \
+            		--org=eqx \
+            		--project-name=max3
+        		"""	
+			}
+
 		}
+
 	}
 	post {
 		failure {
@@ -105,4 +112,5 @@ pipeline {
             deleteDir()
         }
 	}
+
 }
