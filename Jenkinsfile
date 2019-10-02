@@ -34,7 +34,7 @@ pipeline {
 				parserName: 'PYLint',
 				pattern   : 'pylint.log'
 				]],
-				unstableTotalAll: '0',
+				healthy: '500',
 				usePreviousBuildAsReference: true
 				])
                     step([$class: 'CoberturaPublisher',
