@@ -22,7 +22,7 @@ pipeline {
 				
 				sh "pylint -f parseable -d I0011,R0801,E1101 api | tee pylint.log"
 
-				sh "radon cc --xml api > ccm.xml"
+				sh "radon cc -s api > ccm.xml"
 				
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
@@ -46,7 +46,7 @@ pipeline {
 					])
 					step([$class : 'WarningsPublisher',
 						parserConfigurations: [[
-						parserName: 'CodeAnalysisParser',
+						parserName: 'radon_cc',
 						pattern   : '**/ccm.xml'
 						]],
 						// less warnings than this number results in healthy build:
