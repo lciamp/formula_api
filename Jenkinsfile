@@ -68,14 +68,15 @@ pipeline {
 		}
 		stage('snyk dependency scan'){
 			tools {
-				snyk: 'snyk-latest'
-			}
+       			snyk 'snyk-latest'
+        	}
 			steps {
 		        snykSecurity(
 		        	organisation: 'eqx',
 		            severity: 'high',
 		            snykInstallation: 'snyk-latest',
 		            snykTokenId: 'snyk',
+		            
 		            targetFile: 'requirements.txt',
 		            failOnIssues: 'false'
 		        )
