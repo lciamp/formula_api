@@ -26,31 +26,41 @@ pipeline {
 				
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
-				step([$class: 'CcmPublisher', pattern: '**/ccm.xml', reportName: 'CC Report'])
 
 			}
 			post{
-                always{
-			step([$class : 'WarningsPublisher',
-				parserConfigurations: [[
-				parserName: 'PYLint',
-				pattern   : 'pylint.log'
-				]],
-				// less warnings than this number results in healthy build:
-				healthy: '500',
-				usePreviousBuildAsReference: true
-				])
+                always {
+
+					step([$class: 'CcmPublisher', 
+						pattern: '**/ccm.xml', 
+						reportName: 'CC Report'
+					])
+					step([$class : 'WarningsPublisher',
+						parserConfigurations: [[
+						parserName: 'PYLint',
+						pattern   : 'pylint.log'
+						]],
+						// less warnings than this number results in healthy build:
+						healthy: '500',
+						usePreviousBuildAsReference: true
+					])
                     step([$class: 'CoberturaPublisher',
-                                   autoUpdateHealth: false,
-                                   autoUpdateStability: false,
-                                   coberturaReportFile: 'coverage.xml',
-                                   failNoReports: false,
-                                   failUnhealthy: false,
-                                   failUnstable: false,
-                                   maxNumberOfBuilds: 10,
-                                   onlyStable: false,
-                                   sourceEncoding: 'ASCII',
-                                   zoomCoverageChart: false])
+                        autoUpdateHealth: false,
+                        autoUpdateStability: false,
+                        coberturaReportFile: 'coverage.xml',
+                        failNoReports: false,
+                        failUnhealthy: false,
+                        failUnstable: false,
+                        maxNumberOfBuilds: 10,
+                        onlyStable: false,
+                        sourceEncoding: 'ASCII',
+                        zoomCoverageChart: false
+                    ])
+                    recordIssues(
+					    enabledForFailure: true,
+					    tools: [[pattern: '*.xml', tool: [$class: 'CcmPublisher']]],
+					    filters: [includeFile('**/ccm.xml'), excludeCategory('WHITESPACE')]
+					)
                 }
             }
 		}
@@ -65,7 +75,7 @@ pipeline {
                           	testResults: 'test-reports/results.xml')
 				}
 			}
-		}
+		}/*
 		stage('snyk dependency scan'){
 			tools {
        			snyk 'snyk-latest'
@@ -80,7 +90,7 @@ pipeline {
 		            failOnIssues: 'false'
 		        )
 			}
-		}
+		}*/
 	}
 	post {
 		failure {
