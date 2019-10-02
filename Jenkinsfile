@@ -44,6 +44,15 @@ pipeline {
 						healthy: '500',
 						usePreviousBuildAsReference: true
 					])
+					step([$class : 'WarningsPublisher',
+						parserConfigurations: [[
+						parserName: 'Ccm',
+						pattern   : '**/ccm.xml'
+						]],
+						// less warnings than this number results in healthy build:
+						healthy: '500',
+						usePreviousBuildAsReference: true
+					])
                     step([$class: 'CoberturaPublisher',
                         autoUpdateHealth: false,
                         autoUpdateStability: false,
@@ -56,11 +65,6 @@ pipeline {
                         sourceEncoding: 'ASCII',
                         zoomCoverageChart: false
                     ])
-                    recordIssues(
-					    enabledForFailure: true,
-					    tools: [[pattern: '*.xml', tool: [$class: 'CcmPublisher']]],
-					    filters: [includeFile('**/ccm.xml'), excludeCategory('WHITESPACE')]
-					)
                 }
             }
 		}
