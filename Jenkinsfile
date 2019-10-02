@@ -12,7 +12,7 @@ pipeline {
 		pollSCM 'H/10 * * * *'
 	}
 	stages {
-		stage('build + cov') {
+		stage('cov + lynt + cc') {
 			when {
 				branch 'master'
 			}
@@ -20,8 +20,10 @@ pipeline {
 				sh "pip install -r requirements.txt"
 				sh "pip install radon pylint"
 				
-				sh "pylint -f parseable -d I0011,R0801,E1101 api | tee pylint.log || exit 0"
+				sh "pylint -f parseable -d I0011,R0801,E1101 api | tee pylint.log"
+
 				sh "radon cc --xml api > ccm.xml"
+				
 				sh "coverage run -m unittest discover"
 				sh "coverage xml -i"
 				step([$class: 'CcmPublisher', pattern: '**/ccm.xml', reportName: 'CC Report'])
@@ -34,6 +36,7 @@ pipeline {
 				parserName: 'PYLint',
 				pattern   : 'pylint.log'
 				]],
+				// less warnings than this number results in healthy build:
 				healthy: '500',
 				usePreviousBuildAsReference: true
 				])
@@ -61,6 +64,21 @@ pipeline {
 							healthScaleFactor: 0.5,
                           	testResults: 'test-reports/results.xml')
 				}
+			}
+		}
+		stage('snyk dependency scan'){
+			tools {
+				snyk: 'snyk-latest'
+			}
+			steps {
+		        snykSecurity(
+		        	organisation: 'eqx',
+		            severity: 'high',
+		            snykInstallation: 'snyk-latest',
+		            snykTokenId: 'snyk',
+		            targetFile: 'requirements.txt',
+		            failOnIssues: 'false'
+		        )
 			}
 		}
 	}
